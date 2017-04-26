@@ -285,7 +285,7 @@ type DocumentUri = string;
 
 #### Text Documents
 
-The current protocol is talored for textual documents which content can be represented as a string. There is currently no support for binary documents. Positions inside a document (see Position definition below) are expressed as a zero-based line and character offset. To ensure that both client and server split the string into the same line representation the protocol specs the following end of line sequences: '\n', '\r\n' and '\r'.
+The current protocol is tailored for textual documents whose content can be represented as a string. There is currently no support for binary documents. Positions inside a document (see Position definition below) are expressed as a zero-based line and character offset. To ensure that both client and server split the string into the same line representation the protocol specifies the following end-of-line sequences: '\n', '\r\n' and '\r'.
 
 ```typescript
 export const EOL: string[] = ['\n', '\r\n', '\r'];
@@ -293,7 +293,7 @@ export const EOL: string[] = ['\n', '\r\n', '\r'];
 
 #### Position
 
-Position in a text document expressed as zero-based line and character offset. A position is between two characters like an 'insert' cursor in a editor.
+The position in a text document is expressed as a zero-based line offset and a zero-based character offset within that line. A position is between two characters like an 'insert' cursor in a editor.
 
 ```typescript
 interface Position {
@@ -310,7 +310,7 @@ interface Position {
 ```
 #### Range
 
-A range in a text document expressed as (zero-based) start and end positions. A range is comparable to a selection in an editor. Therefore the end position is exclusive.
+A range in a text document is expressed as (zero-based) start and end positions. A range is comparable to a selection in an editor. Therefore the end position is exclusive.
 
 ```typescript
 interface Range {
@@ -396,7 +396,7 @@ namespace DiagnosticSeverity {
 
 #### Command
 
-Represents a reference to a command. Provides a title which will be used to represent a command in the UI. Commands are identitifed using a string identifier and the protocol currently doesn't specify a set of well known commands. So executing a command requires some tool extension code.
+Represents a reference to a command. Provides a title which will be used to represent a command in the UI. Commands are identitifed using a string identifier. The protocol currently doesn't specify a set of well-known commands. So executing a command requires some tool extension code.
 
 ```typescript
 interface Command {
@@ -436,7 +436,7 @@ interface TextEdit {
 }
 ```
 
-If multiple `TextEdit`s are applied to a text document, all text edits describe changes made to the initial document version. Execution wise text edits should applied from the bottom to the top of the text document. Overlapping text edits are not supported.  
+If multiple `TextEdit`s are applied to a text document, all text edits describe changes made to the initial document version. Execution-wise text edits should be applied from the bottom to the top of the text document. Overlapping text edits are not supported.
 
 >#### New: TextDocumentEdit
 
@@ -458,7 +458,7 @@ export interface TextDocumentEdit {
 
 #### WorkspaceEdit
 
-> **Changed** A workspace edit represents changes to many resources managed in the workspace. The edit should either provide `changes` or `documentChanges`. If documentChanges are present they are preferred over `changes` if the client can handle versioned document edits.
+> **Changed** A workspace edit represents changes to many resources managed in the workspace. The edit should either provide `changes` or `documentChanges`. If `documentChanges` are present they are preferred over `changes` if the client can handle versioned document edits.
 
 ```typescript
 export interface WorkspaceEdit {
@@ -532,7 +532,7 @@ interface VersionedTextDocumentIdentifier extends TextDocumentIdentifier {
 
 #### TextDocumentPositionParams
 
-Was `TextDocumentPosition` in 1.0 with inlined parameters
+Was `TextDocumentPosition` in 1.0 with inlined parameters.
 
 A parameter literal used in requests to pass a text document and a position inside that document.
 
@@ -589,10 +589,10 @@ This section documents the actual language server protocol. It uses the followin
 
 * a header describing the request
 * a _Request_: section describing the format of the request sent. The method is a string identifying the request the params are documented using a TypeScript interface
-* a _Response_: section describing the format of the response. The result item describes the returned data in case of a success. The error.data describes the returned data in case of an error. Please remember that in case of a failure the response already contains an error.code and an error.message field. These fields are only speced if the protocol forces the use of certain error codes or messages. In cases where the server can decide on these values freely they aren't listed here.
-* a _Registration Options_ section decribing the registration option if the request or notification supports dynamic capability registration.
+* a _Response_: section describing the format of the response. The result item describes the returned data in case of a success. The error.data describes the returned data in case of an error. Please remember that in case of a failure the response already contains an error.code and an error.message field. These fields are only specified if the protocol forces the use of certain error codes or messages. In cases where the server can decide on these values freely they aren't listed here.
+* a _Registration Options_ section describing the registration options if the request or notification supports dynamic capability registration.
 
-#### Request, Notification and response ordering
+#### Request, Notification and Response ordering
 
 Responses for requests should be sent in the same order as the requests appear on the server or client side. So for example if a server receives a `textDocument/completion` request and then a `textDocument/signatureHelp` request it should first return the response for the `textDocument/completion` and then the reponse for `textDocument/signatureHelp`.
 
